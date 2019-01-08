@@ -1,4 +1,4 @@
-# @senzing/sdk-components-ng
+# @senzing/sdk-components-web
 
 ## Overview
 
