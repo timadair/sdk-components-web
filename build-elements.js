@@ -1,6 +1,6 @@
 const fs = require('fs-extra');
 const concat = require('concat');
-var sass = require('node-sass');
+//var sass = require('node-sass');
 
 (async function build() {
   const files = [
@@ -10,25 +10,11 @@ var sass = require('node-sass');
   ];
 
   await fs.ensureDir('./dist/@senzing/elements/');
-  await concat(files, './dist/@senzing/elements/senzing-elements.js');
-  await sass.render({
-    file: "./projects/sdk/src/lib/scss/styles.scss",
-    includePaths: ["./projects/sdk/src/lib/scss/"]
-  }, function(err, result) {
-    if(err){
-      console.log('SASSY ERROR: ',err.message);
-    } else {
-      fs.writeFile('./dist/@senzing/elements/senzing-elements.css', result.css, function(err){
-        if(!err){
-          //file written on disk
+  await concat(files, './dist/@senzing/elements/senzing-components-web.js');
 
-        }
-      });
-    }
-  });
-
+  await fs.rename('./dist/@senzing/elements/styles.css','./dist/@senzing/elements/senzing-components-web.css');
   await fs.copy(
-    './projects/sdk/src/lib/scss/themes',
+    './node_modules/@senzing/sdk-components-ng/styles/themes',
     './dist/@senzing/elements/themes'
   ).catch(()=>{ console.log('build error #1'); });
   await fs.copyFile(
