@@ -1,0 +1,25 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../../out-tsc/app",
+    "types": []
+  },
+  "exclude": [
+    "test.ts",
+    "**/*.spec.ts"
+  ],
+  "paths": {
+    "@senzing/sdk-components-ng": [
+      "../../dist/senzing/sdk"
+    ],
+    "@senzing/sdk-components-ng/*": [
+      "../../dist/senzing/sdk/*"
+    ],
+    "@codewuzzle/sdk-components-ng/": [
+      "../../dist/senzing/sdk"
+    ],
+    "@codewuzzle/sdk-components-ng/*": [
+      "../../dist/senzing/sdk/*"
+    ]
+  }
+}

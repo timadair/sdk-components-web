@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>@Senzing/Elements</title>
+  <base href="/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <script>
+    // wire up senzing web components to event handlers
+    window.onload = function() {
+      var searchBoxEle    = document.querySelector('sz-search');
+      var searchResEle    = document.querySelector('sz-search-results');
+      var entityDetailEle = document.querySelector('sz-entity-detail');
+
+      searchBoxEle.addEventListener('resultsChange', function(evt) {
+        if(evt.detail){
+          // has payload
+          var searchResults = evt.detail;
+          searchResEle.setAttribute('results', JSON.stringify(searchResults));
+        }
+      });
+      searchResEle.addEventListener('resultClick', function(evt){
+        if(evt.detail && evt.detail.entityId){
+          //has payload
+          entityDetailEle.setAttribute('entity-id', evt.detail.entityId);
+        }
+      });
+    };
+  </script>
+</head>
+<body>
+  <sz-search name="RICHARD LAVARADO"
+  email="114546319@MAIL.COM"></sz-search>
+  <sz-search-results></sz-search-results>
+  <sz-entity-detail entity-id="7066"></sz-entity-detail>
+  <sz-powered-by format="small" style="margin-top: 4em;"></sz-powered-by>
+</body>
+</html>
