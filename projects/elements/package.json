@@ -1,12 +1,12 @@
 {
   "name": "@senzing/sdk-components-web",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "private": false,
   "keywords" :["WebComponent","Library","Senzing"],
   "license" : "SEE LICENSE IN LICENSE",
   "repository": {
     "type" : "git",
-    "url" : "https://github.com/999gz/g2-ui"
+    "url" : "https://github.com/Senzing/sdk-components-web"
   },
-  "homepage" :"  https://github.com/999gz/g2-ui/tree/feature/third-party-modules-arch/%40senzing"
+  "homepage" :"https://senzing.github.io/sdk-components-web/"
 }

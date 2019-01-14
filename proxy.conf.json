@@ -1,6 +1,9 @@
 {
   "/api": {
-	   "target": "http://g2server:22080/workbench/",
-	    "secure": false
+    "target": "http://g2server:22080/workbench",
+    "secure": false,
+    "pathRewrite": {
+        "^/api": "/workbench"
+    }
   }
 }
