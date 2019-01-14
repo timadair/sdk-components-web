@@ -25,7 +25,7 @@
     "@angular/platform-browser": "~7.1.0",
     "@angular/platform-browser-dynamic": "~7.1.0",
     "@angular/router": "~7.1.0",
-    "@senzing/sdk-components-ng": "file:../sdk-components-ng/dist/@senzing/sdk-components-ng/senzing-sdk-components-ng-0.0.3.tgz",
+    "@senzing/sdk-components-ng": "^0.0.3",
     "core-js": "^2.5.4",
     "document-register-element": "1.8.1",
     "http-server": "^0.11.1",
