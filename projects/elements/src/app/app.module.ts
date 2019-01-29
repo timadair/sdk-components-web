@@ -13,20 +13,11 @@ import {
   SzConfigurationComponent
 } from '@senzing/sdk-components-ng';
 
-export function szConfigInjector(): SzRestConfiguration {
-  return new SzRestConfiguration({
-    basePath: "/api/",
-    portNum: 22080,
-    withCredentials: false
-  });
-}
-
 @NgModule({
   declarations: [],
   imports: [
     BrowserModule,
-    /** inject default config otherwise will throw static injector error */
-    SenzingSdkModule.forRoot( szConfigInjector )
+    SenzingSdkModule.forRoot()
   ],
   providers: []
 })

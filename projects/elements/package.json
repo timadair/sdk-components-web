@@ -1,6 +1,6 @@
 {
   "name": "@senzing/sdk-components-web",
-  "version": "0.0.3",
+  "version": "1.0.0-alpha",
   "private": false,
   "keywords" :["WebComponent","Library","Senzing"],
   "license" : "SEE LICENSE IN LICENSE",
@@ -8,5 +8,8 @@
     "type" : "git",
     "url" : "https://github.com/Senzing/sdk-components-web"
   },
-  "homepage" :"https://senzing.github.io/sdk-components-web/"
+  "homepage" :"https://senzing.github.io/sdk-components-web/",
+  "dependencies": {
+    "@senzing/sdk-components-ng": "1.0.0-alpha"
+  }
 }
