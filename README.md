@@ -1,4 +1,4 @@
-# @senzing/sdk-components-ng
+# @senzing/sdk-components-web
 
 ## Overview
 This project is for the senzing sdk web components. It provides web component versions built 
