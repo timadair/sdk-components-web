@@ -22,7 +22,8 @@ npm install @senzing/sdk-components-web --save
 Add the script tag to your html document like so:
 ```html
   <body> ...
-    <script type="text/javascript" src="senzing-components-web.js"></script>
+    <script type="text/javascript" src="node_modules/@senzing/sdk-components-web/senzing-components-web.js"></script>
+
   </body>
 </html>
 ```
