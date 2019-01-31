@@ -19,16 +19,10 @@
     ],
     "paths": {
       "@senzing/sdk-components-ng": [
-        "dist/senzing/sdk"
+        "dist/senzing/sdk-components-ng"
       ],
       "@senzing/sdk-components-ng/*": [
-        "dist/senzing/sdk/*"
-      ],
-      "@codewuzzle/sdk-components-ng": [
-        "dist/senzing/sdk"
-      ],
-      "@codewuzzle/sdk-components-ng/*": [
-        "dist/senzing/sdk/*"
+        "dist/senzing/sdk-components-ng/*"
       ]
     }
   }

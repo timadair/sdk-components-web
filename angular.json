@@ -3,9 +3,9 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "@senzing/elements": {
-      "root": "projects/elements/",
-      "sourceRoot": "projects/elements/src",
+    "@senzing/sdk-components-web": {
+      "root": "projects/sdk-components-web/",
+      "sourceRoot": "projects/sdk-components-web/src",
       "projectType": "application",
       "prefix": "sz-element",
       "schematics": {},
@@ -13,17 +13,17 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/@senzing/elements",
-            "index": "projects/elements/src/index.html",
-            "main": "projects/elements/src/main.ts",
-            "polyfills": "projects/elements/src/polyfills.ts",
-            "tsConfig": "projects/elements/tsconfig.app.json",
+            "outputPath": "dist/@senzing/sdk-components-web",
+            "index": "projects/sdk-components-web/src/index.html",
+            "main": "projects/sdk-components-web/src/main.ts",
+            "polyfills": "projects/sdk-components-web/src/polyfills.ts",
+            "tsConfig": "projects/sdk-components-web/tsconfig.app.json",
             "assets": [
-              "projects/elements/src/favicon.ico",
-              "projects/elements/src/assets"
+              "projects/sdk-components-web/src/favicon.ico",
+              "projects/sdk-components-web/src/assets"
             ],
             "styles": [
-              "projects/elements/src/styles.scss"
+              "projects/sdk-components-web/src/styles.scss"
             ],
             "scripts": []
           },
@@ -31,8 +31,8 @@
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "projects/elements/src/environments/environment.ts",
-                  "with": "projects/elements/src/environments/environment.prod.ts"
+                  "replace": "projects/sdk-components-web/src/environments/environment.ts",
+                  "with": "projects/sdk-components-web/src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -57,35 +57,35 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "@senzing/elements:build",
+            "browserTarget": "@senzing/sdk-components-web:build",
             "port": 4300
           },
           "configurations": {
             "production": {
-              "browserTarget": "@senzing/elements:build:production"
+              "browserTarget": "@senzing/sdk-components-web:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "@senzing/elements:build"
+            "browserTarget": "@senzing/sdk-components-web:build"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/elements/src/test.ts",
-            "polyfills": "projects/elements/src/polyfills.ts",
-            "tsConfig": "projects/elements/tsconfig.spec.json",
-            "karmaConfig": "projects/elements/karma.conf.js",
+            "main": "projects/sdk-components-web/src/test.ts",
+            "polyfills": "projects/sdk-components-web/src/polyfills.ts",
+            "tsConfig": "projects/sdk-components-web/tsconfig.spec.json",
+            "karmaConfig": "projects/sdk-components-web/karma.conf.js",
             "styles": [
-              "projects/elements/src/styles.scss"
+              "projects/sdk-components-web/src/styles.scss"
             ],
             "scripts": [],
             "assets": [
-              "projects/elements/src/favicon.ico",
-              "projects/elements/src/assets"
+              "projects/sdk-components-web/src/favicon.ico",
+              "projects/sdk-components-web/src/assets"
             ]
           }
         },
@@ -93,8 +93,8 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/elements/tsconfig.app.json",
-              "projects/elements/tsconfig.spec.json"
+              "projects/sdk-components-web/tsconfig.app.json",
+              "projects/sdk-components-web/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"
@@ -103,27 +103,27 @@
         }
       }
     },
-    "@senzing/elements-e2e": {
-      "root": "projects/elements-e2e/",
+    "@senzing/sdk-components-web-e2e": {
+      "root": "projects/sdk-components-web-e2e/",
       "projectType": "application",
       "prefix": "",
       "architect": {
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
-            "protractorConfig": "projects/elements-e2e/protractor.conf.js",
-            "devServerTarget": "elements:serve"
+            "protractorConfig": "projects/sdk-components-web-e2e/protractor.conf.js",
+            "devServerTarget": "sdk-components-web:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "elements:serve:production"
+              "devServerTarget": "sdk-components-web:serve:production"
             }
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": "projects/elements-e2e/tsconfig.e2e.json",
+            "tsConfig": "projects/sdk-components-web-e2e/tsconfig.e2e.json",
             "exclude": [
               "**/node_modules/**"
             ]
@@ -132,7 +132,7 @@
       }
     }
   },
-  "defaultProject": "@senzing/elements",
+  "defaultProject": "@senzing/sdk-components-web",
   "schematics": {
     "@schematics/angular:component": {
       "styleext": "scss"

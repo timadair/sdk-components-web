@@ -1,33 +1,73 @@
 const fs = require('fs-extra');
 const concat = require('concat');
-//var sass = require('node-sass');
+const cheerio = require('cheerio');
 
 (async function build() {
   const files = [
-    './dist/@senzing/elements/runtime.js',
-    './dist/@senzing/elements/polyfills.js',
-    './dist/@senzing/elements/main.js'
+    './dist/@senzing/sdk-components-web/runtime.js',
+    './dist/@senzing/sdk-components-web/polyfills.js',
+    './dist/@senzing/sdk-components-web/main.js'
   ];
 
-  await fs.ensureDir('./dist/@senzing/elements/');
-  await concat(files, './dist/@senzing/elements/senzing-components-web.js');
+  await fs.ensureDir('./dist/@senzing/sdk-components-web/');
+  await concat(files, './dist/@senzing/sdk-components-web/senzing-components-web.js');
 
-  await fs.rename('./dist/@senzing/elements/styles.css','./dist/@senzing/elements/senzing-components-web.css');
+  await fs.rename('./dist/@senzing/sdk-components-web/styles.css','./dist/@senzing/sdk-components-web/senzing-components-web.css');
   await fs.copy(
     './node_modules/@senzing/sdk-components-ng/styles/themes',
-    './dist/@senzing/elements/themes'
+    './dist/@senzing/sdk-components-web/themes'
   ).catch(()=>{ console.log('build error #1'); });
   await fs.copyFile(
-    './projects/elements/package.json',
-    './dist/@senzing/elements/package.json'
+    './projects/sdk-components-web/package.json',
+    './dist/@senzing/sdk-components-web/package.json'
   ).catch(()=>{ console.log('build error #2'); });
   await fs.copyFile(
-    './projects/elements/README.md',
-    './dist/@senzing/elements/README.md'
+    './README.md',
+    './dist/@senzing/sdk-components-web/README.md'
   ).catch(()=>{ console.log('build error #3'); });
-  await fs.remove('./dist/@senzing/elements/favicon.ico').catch(()=>{ console.log('build error #4'); });
-  await fs.remove('./dist/@senzing/elements/polyfills.js').catch(()=>{ console.log('build error #5'); });
-  await fs.remove('./dist/@senzing/elements/runtime.js').catch(()=>{ console.log('build error #6'); });
-  await fs.remove('./dist/@senzing/elements/main.js').catch(()=>{ console.log('build error #7'); });
-  await fs.rename('./dist/@senzing/elements/index.html','./dist/@senzing/elements/example.html').catch(()=>{ console.log('build error #8'); });
+
+  // remove extraneous files
+  await fs.remove('./dist/@senzing/sdk-components-web/favicon.ico').catch(()=>{ console.log('build error #4'); });
+  await fs.remove('./dist/@senzing/sdk-components-web/polyfills.js').catch(()=>{ console.log('build error #5'); });
+  await fs.remove('./dist/@senzing/sdk-components-web/runtime.js').catch(()=>{ console.log('build error #6'); });
+  await fs.remove('./dist/@senzing/sdk-components-web/main.js').catch(()=>{ console.log('build error #7'); });
+
+  // rename index.html to example.html
+  // await fs.rename('./dist/@senzing/sdk-components-web/index.html','./dist/@senzing/sdk-components-web/example.html').catch(()=>{ console.log('build error #8'); });
+
+  // replace script refs in example.html
+  await fs.readFile((__dirname + '/dist/@senzing/sdk-components-web/index.html'), {encoding: 'utf8'}, (error, data) => {
+    if(error){
+      console.log('build error #8');
+      return;
+    }
+    var $ = cheerio.load(data); // load in the HTML into cheerio
+    // remove base
+    $('base').remove();
+
+    // remove all other scripts
+    $('script[src="runtime.js"]').remove();
+    $('script[src="polyfills.js"]').remove();
+
+    // replace with bundle script
+    $('script[src="main.js"]').attr('src','senzing-components-web.js');
+
+    // replace stylesheet with bundled one
+    $('link[href="styles.css"]').attr('href', 'senzing-components-web.css');
+
+    // write file
+    fs.writeFile((__dirname + '/dist/@senzing/sdk-components-web/example.html'), $.html(), (error) => {
+      if(error){
+        console.error('build error #9');
+        return;
+      }
+      // now remove original
+      fs.remove('./dist/@senzing/sdk-components-web/index.html', (err)=>{
+        if(err){
+          console.log('build error #10');
+        }
+      });
+    });
+  });
+
 })();
