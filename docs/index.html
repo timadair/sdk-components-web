@@ -1,0 +1,153 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Senzing SDK Web Components</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
+	      <link rel="stylesheet" href="./styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="./" class="navbar-brand">Senzing SDK Web Components</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content getting-started">
+                   <div class="content-data">
+
+<h1 id="-senzing-sdk-components-web">@senzing/sdk-components-web</h1>
+<h2 id="overview">Overview</h2>
+<p>This project is for the senzing sdk web components. It provides web component versions built
+off of the components found in <a href="https://github.com/Senzing/sdk-components-ng">@senzing/sdk-components-ng</a>. The components themselves leverage the <a href="https://www.npmjs.com/package/@senzing/rest-api-client-ng">rest-api-client-ng package</a> which itself is generated from the <a href="https://github.com/Senzing/senzing-rest-api">OAS specification</a>.</p>
+<p>The idea is to provide a framework agnostic option of those same components. </p>
+<h3 id="web-components">Web Components</h3>
+<p>Web components are a set of web platform APIs that allow you to create new custom, reusable, encapsulated HTML tags to use in web pages and web apps. Custom components and widgets build on the Web Component standards, will work across modern browsers, and can be used with any JavaScript library or framework that works with HTML.</p>
+<p>For more information on the subject see the following sites:</p>
+<ul>
+<li><a href="https://www.webcomponents.org/introduction">WebComponents.org</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components">Web Components | MDN</a></li>
+<li><a href="https://developers.google.com/web/fundamentals/web-components/">Building Components | Web Fundamentals | Google Developers</a></li>
+</ul>
+<h2 id="installation">Installation</h2>
+<div><pre class="line-numbers"><code class="language-terminal">npm install &#64;senzing/sdk-components-web --save</code></pre></div><p>Add the script tag to your html document like so:</p>
+<div><pre class="line-numbers"><code class="language-html">  &lt;body&gt; ...
+    &lt;script type=&quot;text/javascript&quot; src=&quot;node_modules/&#64;senzing/sdk-components-web/senzing-components-web.js&quot;&gt;&lt;/script&gt;
+
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre></div><p>And include the component tag in your document like so:</p>
+<div><pre class="line-numbers"><code class="language-html">&lt;sz-search name=&quot;Guy To LookFor&quot;
+  email=&quot;GuysEmail&#64;MAIL.COM&quot;&gt;&lt;/sz-search&gt;</code></pre></div><h2 id="scripting-components">Scripting Components</h2>
+<p>All the components support all the same inputs and output as the <a href="https://github.com/Senzing/sdk-components-ng">@senzing/sdk-components-ng</a> package. <a href="https://senzing.github.io/sdk-components-ng/">See documentation</a></p>
+<p>The only major difference between the two packages is the dependency requirements and the way that eventing is handled outside of the components. The web components are accessible just like any other DOM elements.</p>
+<p>To listen for the result of a the search box completed search for example you would add an
+event listener to the dom node ie:</p>
+<div><pre class="line-numbers"><code class="language-javascript">document.querySelector(&#39;sz-search&#39;).addEventListener(&#39;resultsChange&#39;, function(evt) {
+  if(evt.detail){
+    var searchResults = evt.detail;
+    // check if results &gt; 0
+    if(searchResults &gt; 0){
+      console.log(&#39;SzAttributeSearchResult[]: &#39;, searchResults);
+    }
+  }
+});</code></pre></div><p>To see a more complex example(a search box, with a results list, and a detail view) see the example.html file shipped with the npm package.</p>
+<h2 id="styling">Styling</h2>
+<p>There are some simple themes provided in the themes directory in the package itself. They can be included in the html document like so:</p>
+<div><pre class="line-numbers"><code class="language-html">&lt;head&gt;...
+  &lt;link rel=&quot;stylesheet&quot; href=&quot;node_modules/&#64;senzing/sdk-components-web/themes/drab.css&quot;&gt;
+&lt;/head&gt;</code></pre></div><h3 id="customizing">Customizing</h3>
+<p>There are some limitations when using web components. Because of the way that browsers treat the dom inside of the component tags themselves, the content inside a tag is not directly accesible. It means styling a sub element like so:</p>
+<div><pre class="line-numbers"><code class="language-css">sz-search-results sz-search-result-card { color: blue; }</code></pre></div><p>will <em><em>NOT</em></em> work. </p>
+<p>The elements themselves were created with this limitation in mind and try to provide as many sensible <a href="https://senzing.github.io/sdk-components-ng/additional-documentation/themes/customizing.html">CSS Variables</a> as makes sense. For more information on CSS Variables See <a href="https://developers.google.com/web/updates/2016/02/css-variables-why-should-you-care">this article</a> or <a href="https://css-tricks.com/difference-between-types-of-css-variables/">here</a>.</p>
+<p>an example acheiving the same effect as above that <em>WILL WORK</em> would be:</p>
+<div><pre class="line-numbers"><code class="language-css">body {
+  --sz-search-results-color: blue;
+}</code></pre></div><p>Another option is to bake the styles in to the components themselves. This is the extreme option, but skips over the issue entirely. The requirements for doing so are the same as building the sdk-components-ng package from source. The repo is <a href="https://github.com/Senzing/sdk-components-ng">publicly avaiable</a>, fork it and have yourself an afternoon. </p>
+<h2 id="dependencies">Dependencies</h2>
+<h3 id="rest-api-server">REST API Server</h3>
+<p>These components require the senzing <a href="https://github.com/Senzing/senzing-api-server/">Senzing REST API Sever</a> to function. Follow <a href="https://github.com/Senzing/senzing-api-server/">the instructions</a> to check out and build the <a href="https://github.com/Senzing/senzing-api-server/">Senzing REST API Sever</a> from source or download a pre-built. </p>
+<h3 id="example-notes">Example Notes</h3>
+<p>You&#39;ll want to copy the example.html file to some place you can serve up with a webserver. By default the components are configured to access the REST API Server through a CORS request. To the best of my knowledge the components won&#39;t be able to send the appropriate Origin header when serving directly off of the file system. This is probably a good thing.</p>
+<p>Besides, it&#39;s a super easy problem to solve.</p>
+<div><pre class="line-numbers"><code class="language-bash">npm install http-server
+./node_modules/.bin/http-server node_modules/&#64;senzing/sdk-components-web/example.html --cors</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 0;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'getting-started';
+            var COMPODOC_CURRENT_PAGE_URL = 'index.html';
+       </script>
+
+       <script src="./js/libs/custom-elements.min.js"></script>
+       <script src="./js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="./js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="./js/menu-wc.js" defer></script>
+
+       <script src="./js/libs/bootstrap-native.js"></script>
+
+       <script src="./js/libs/es6-shim.min.js"></script>
+       <script src="./js/libs/EventDispatcher.js"></script>
+       <script src="./js/libs/promise.min.js"></script>
+       <script src="./js/libs/zepto.min.js"></script>
+
+       <script src="./js/compodoc.js"></script>
+
+       <script src="./js/tabs.js"></script>
+       <script src="./js/menu.js"></script>
+       <script src="./js/libs/clipboard.min.js"></script>
+       <script src="./js/libs/prism.js"></script>
+       <script src="./js/sourceCode.js"></script>
+          <script src="./js/search/search.js"></script>
+          <script src="./js/search/lunr.min.js"></script>
+          <script src="./js/search/search-lunr.js"></script>
+          <script src="./js/search/search_index.js"></script>
+       <script src="./js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
