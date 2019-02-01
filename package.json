@@ -7,7 +7,7 @@
     "build": "ng build @senzing/sdk-components-web --prod --output-hashing none && node build-elements.js",
     "build:docs": "./node_modules/.bin/compodoc -p projects/sdk-components-web/tsconfig.app.json -n \"Senzing SDK Web Components\" -d docs",
     "package": "npm run build && cd ./dist/@senzing/sdk-components-web/ && npm pack",
-    "publish": "cd ./dist/@senzing/sdk-components-web/ && npm publish --access restricted",
+    "publish": "cd ./dist/@senzing/sdk-components-web/ && npm publish --access public",
     "install:sdk:local": "npm install ../sdk-components-ng/dist/\\@senzing/sdk-components-ng/senzing-sdk-components-ng-1.0.0-alpha.tgz",
     "test": "ng test",
     "lint": "ng lint",
