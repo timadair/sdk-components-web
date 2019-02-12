@@ -15,6 +15,18 @@
       var entityDetailEle = document.querySelector('sz-entity-detail');
       var noResultsEle    = document.querySelector('#no-results');
 
+      document.getElementById('api-config').addEventListener('parametersChanged', function(event){
+        console.log('a value in the config tag has emitted a change: ', event);
+        searchBoxEle.updateAttributeTypes();
+      });
+
+
+      searchBoxEle.addEventListener('searchException', function(evt) {
+        console.log('search error', evt);
+        searchBoxEle.updateAttributeTypes();
+      });
+
+
       searchBoxEle.addEventListener('resultsChange', function(evt) {
         if(evt.detail){
           // has payload
@@ -59,11 +71,11 @@
   </style>
 </head>
 <body>
-  <sz-search name="李娜"
-  email="114546319@MAIL.COM"></sz-search>
+  <sz-configuration id="api-config"></sz-configuration>
+  <sz-search></sz-search>
   <h2 id="no-results">No Results Found</h2>
   <sz-search-results class="hidden"></sz-search-results>
-  <sz-entity-detail class="hidden" entity-id="7066"></sz-entity-detail>
+  <sz-entity-detail class="hidden"></sz-entity-detail>
   <sz-powered-by format="small" style="margin-top: 4em;"></sz-powered-by>
 </body>
 </html>
