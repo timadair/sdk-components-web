@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>@senzing/sdk-components-web</title>
+  <base href="/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <script>
+    // wire up senzing web components to event handlers
+    window.onload = function() {
+      var searchBoxEle    = document.querySelector('sz-search');
+      var searchResEle    = document.querySelector('sz-search-results');
+      var entityDetailEle = document.querySelector('sz-entity-detail');
+      var noResultsEle    = document.querySelector('#no-results');
+
+      document.getElementById('api-config').addEventListener('parametersChanged', function(event){
+        console.log('a value in the config tag has emitted a change: ', event);
+        searchBoxEle.updateAttributeTypes();
+      });
+
+
+      searchBoxEle.addEventListener('searchException', function(evt) {
+        console.log('search error', evt);
+        searchBoxEle.updateAttributeTypes();
+      });
+
+
+      searchBoxEle.addEventListener('resultsChange', function(evt) {
+        if(evt.detail){
+          // has payload
+          var searchResults = evt.detail;
+          console.log('results from search: ',searchResults);
+          if(searchResults.length <= 0){
+            noResultsEle.removeAttribute('class');
+            searchResEle.setAttribute('class','hidden');
+            entityDetailEle.setAttribute('class','hidden');
+          } else {
+            noResultsEle.setAttribute('class','hidden');
+            searchResEle.removeAttribute('class');
+            entityDetailEle.setAttribute('class','hidden');
+          }
+          searchResEle.setAttribute('results', JSON.stringify(searchResults));
+        }
+      });
+      searchResEle.addEventListener('resultClick', function(evt){
+        if(evt.detail && evt.detail.entityId){
+          //has payload
+          showDetailView(evt.detail.entityId);
+        }
+      });
+      function showDetailView(entityId) {
+        entityDetailEle.setAttribute('entity-id', entityId);
+        searchResEle.setAttribute('class','hidden');
+        entityDetailEle.removeAttribute('class');
+      }
+      function onError(err){
+        console.log('something weird happened: ', err);
+      }
+    };
+  </script>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: rgb(46, 46, 46);
+    }
+    .no-results, .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+  <sz-configuration id="api-config"></sz-configuration>
+  <sz-search></sz-search>
+  <h2 id="no-results">No Results Found</h2>
+  <sz-search-results class="hidden"></sz-search-results>
+  <sz-entity-detail class="hidden"></sz-entity-detail>
+  <sz-powered-by format="small" style="margin-top: 4em;"></sz-powered-by>
+</body>
+</html>
